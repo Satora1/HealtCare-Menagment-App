@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -14,6 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import CustomFormField from "../CustomFormField"
+import SubmitButton from "@/components/SubmitButton"
+import { useState } from "react"
 
 export enum FormFieldType {
   INPUT = "input",
@@ -33,6 +34,7 @@ const formSchema = z.object({
 })
 
 const PatientForm = () => {
+const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -85,7 +87,9 @@ const PatientForm = () => {
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
         />
-        <Button type="submit">Submit</Button>
+        <SubmitButton isLoading={isLoading}>
+          Get Started
+        </SubmitButton>
       </form>
     </Form>
   )
