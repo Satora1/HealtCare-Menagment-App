@@ -1,0 +1,1 @@
+export const GenderOptons=["Male","Female","Other"]
