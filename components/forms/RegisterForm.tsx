@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form, FormControl } from "@/components/ui/form";
-import { createUser } from "@/lib/actions/patient.actions";
+import { createUser, registerPatient } from "@/lib/actions/patient.actions";
 import { PatientFormValidation, UserFormValidation } from "@/lib/validation";
 import Image from "next/image";
 import "react-phone-number-input/style.css";
@@ -15,11 +15,15 @@ import CustomFormField from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues } from "@/constants";
 import { Label } from "../ui/label";
 import { SelectItem } from "@/components/ui/select";
 import FileUploader from "../FileUploader";
-
+import {
+    Doctors,
+    GenderOptions,
+    IdentificationTypes,
+    PatientFormDefaultValues,
+} from "@/constants";
 
 
 
@@ -56,10 +60,11 @@ export const RegisterForm = ({ user }: { user: User }) => {
                 ...values,
                 userId: user.$id,
                 birthDate: new Date(values.birthDate),
-                identificationDocument:formData,
+                identificationDocument: formData,
             }
-            const patient=await registerPatirnt(patientData)
-            if(patient) router.push(`/patients/${user.$id}/new-appointment`)
+            // @ts-ignore
+            const patient = await registerPatient(patientData)
+            if (patient) router.push(`/patients/${user.$id}/new-appointment`)
         } catch (error) {
             console.log(error);
         }
