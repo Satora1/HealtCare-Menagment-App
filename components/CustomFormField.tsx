@@ -109,7 +109,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
                         </SelectContent>
                     </Select>
                 </FormControl>
-            )
+            );
         case FormFieldType.SKELETON:
             return (
                 renderSkeleton ? renderSkeleton(field) : null

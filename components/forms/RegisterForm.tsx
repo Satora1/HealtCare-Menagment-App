@@ -31,6 +31,9 @@ export const RegisterForm = ({ user }: { user: User }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
+    const items = [
+        "apple", "orange", "pinaple"
+    ]
     const form = useForm<z.infer<typeof PatientFormValidation>>({
         resolver: zodResolver(PatientFormValidation),
         defaultValues: {
