@@ -16,7 +16,7 @@ import SubmitButton from "../SubmitButton";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
-import { SelectItem } from "@/components/ui/select";
+import { SelectItem } from "@radix-ui/react-select";
 import FileUploader from "../FileUploader";
 import {
     Doctors,
@@ -31,9 +31,6 @@ export const RegisterForm = ({ user }: { user: User }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    const items = [
-        "apple", "orange", "pinaple"
-    ]
     const form = useForm<z.infer<typeof PatientFormValidation>>({
         resolver: zodResolver(PatientFormValidation),
         defaultValues: {
