@@ -7,8 +7,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
-import { createUser } from "@/lib/actions/patient.actions";
-
 import Image from "next/image";
 
 import "react-phone-number-input/style.css";
@@ -34,7 +32,7 @@ export const AppointmentForm = ({
     const form = useForm<z.infer<typeof AppointmentFormValidation>>({
         resolver: zodResolver(AppointmentFormValidation),
         defaultValues: {
-            primaryPhysician: " ",
+            primaryPhysician: "John Green",
             schedule: new Date(),
             reason: "",
             note: "",
@@ -72,7 +70,7 @@ export const AppointmentForm = ({
                 const appointment = await CreateAppointment(appointmentData)
                 if (appointment) {
                     form.reset()
-                    router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.id}`)
+                    router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`)
                 }
             }
 
