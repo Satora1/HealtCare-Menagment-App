@@ -15,7 +15,7 @@ import SubmitButton from "../SubmitButton";
 import { FormFieldType } from "./PatientForm";
 import { Doctors } from "@/constants";
 import { SelectItem } from "@radix-ui/react-select";
-import { CreateAppointment } from "@/lib/actions/appointment.actions";
+import { createAppointment } from "@/lib/actions/appointment.actions";
 import { getAppointmentSchema } from "@/lib/validation";
 
 export const AppointmentForm = ({
@@ -52,7 +52,7 @@ export const AppointmentForm = ({
                 status = "cancelled"
                 break
             default:
-                status = "panding"
+                status = "pending"
                 break;
         }
 
@@ -67,7 +67,7 @@ export const AppointmentForm = ({
                     status: status as Status,
                     note: values.note,
                 };
-                const appointment = await CreateAppointment(appointmentData)
+                const appointment = await createAppointment(appointmentData)
                 if (appointment) {
                     form.reset()
                     router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`)
