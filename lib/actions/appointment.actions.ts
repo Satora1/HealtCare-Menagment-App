@@ -116,3 +116,21 @@ export const getAppointment = async (appointmentId: string) => {
         );
     }
 };
+
+export const updateApointment = async ({ appointmentId, userId, appointment, type }: UpdateAppointmentParams) => {
+    try {
+        const updateApointment = await databases.updateDocument(
+            DATABASE_ID!,
+            APPOINTMENT_COLLECTION_ID!,
+            appointmentId,
+            appointment
+        )
+        if (!updateApointment) {
+            throw new Error("Appointment not found")
+        }
+        revalidatePath("/admin")
+        return parseStringify(updateApointment)
+    } catch (error) {
+        console.log(error)
+    }
+}
