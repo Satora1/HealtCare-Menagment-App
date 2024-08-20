@@ -17,17 +17,20 @@ import { Doctors } from "@/constants";
 import { SelectItem } from "@radix-ui/react-select";
 import { createAppointment } from "@/lib/actions/appointment.actions";
 import { getAppointmentSchema } from "@/lib/validation";
+import { Appointment } from "@/types/appwrite.types";
 
 export const AppointmentForm = ({
-    userId, patientId, type
+    userId, patientId, type, appointment, setOpen
 }: {
     userId: string;
     patientId: string;
-    type: "create" | "cancel" | "schedule"
+    type: "create" | "cancel" | "schedule";
+    appointment?: Appointment;
+    setOpen: (open: boolean) => void
 }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const AppointmentFormValidation=getAppointmentSchema(type)
+    const AppointmentFormValidation = getAppointmentSchema(type)
 
     const form = useForm<z.infer<typeof AppointmentFormValidation>>({
         resolver: zodResolver(AppointmentFormValidation),
