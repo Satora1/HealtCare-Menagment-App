@@ -18,15 +18,20 @@ import { SelectItem } from "@radix-ui/react-select";
 import { createAppointment, updateApointment } from "@/lib/actions/appointment.actions";
 import { getAppointmentSchema } from "@/lib/validation";
 import { Appointment } from "@/types/appwrite.types";
+import { Dispatch, SetStateAction } from "react";
 
 export const AppointmentForm = ({
-    userId, patientId, type, appointment, setOpen
+    userId,
+    patientId,
+    type = "create",
+    appointment,
+    setOpen,
 }: {
     userId: string;
     patientId: string;
-    type: "create" | "cancel" | "schedule";
+    type: "create" | "schedule" | "cancel";
     appointment?: Appointment;
-    setOpen: (open: boolean) => void
+    setOpen?: Dispatch<SetStateAction<boolean>>;
 }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -35,11 +40,13 @@ export const AppointmentForm = ({
     const form = useForm<z.infer<typeof AppointmentFormValidation>>({
         resolver: zodResolver(AppointmentFormValidation),
         defaultValues: {
-            primaryPhysician: appointment ? appointment.primaryPhysician : "",
-            schedule: appointment ? new Date(appointment.schedule) : new Date(),
+            primaryPhysician: appointment ? appointment?.primaryPhysician : "John Green",
+            schedule: appointment
+                ? new Date(appointment?.schedule!)
+                : new Date(Date.now()),
             reason: appointment ? appointment.reason : "",
-            note: appointment ? appointment.note : "",
-            cancellationReason: appointment ? appointment.cancellationReason : "",
+            note: appointment?.note || "",
+            cancellationReason: appointment?.cancellationReason || "",
         },
     });
 

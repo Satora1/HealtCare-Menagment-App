@@ -5,7 +5,6 @@ import { formatDateTime } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { formatDate } from 'react-datepicker/dist/date_utils'
 
 const Success = async ({ params: { userId }, searchParams }: SearchParamProps) => {
     const appontmentId = (searchParams?.appointmentId as string) || ""

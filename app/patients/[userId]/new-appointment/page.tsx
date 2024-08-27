@@ -22,9 +22,9 @@ export default async function NewAppointment({ params: { userId } }: SearchParam
 
 
           <AppointmentForm
-            type="create"
+            patientId={patient?.$id}
             userId={userId}
-            patientId={patient.$id}
+            type="create"
           />
           <p className="justify-items-end text-dark-600 xl:text-left">
             ©2024 Medicus
